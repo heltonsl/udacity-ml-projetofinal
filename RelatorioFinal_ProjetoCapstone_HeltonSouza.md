@@ -23,12 +23,11 @@ O valor a ser previsto é um valor contínuo, correspondente ao valor, em reais,
 
 
 ## II. Análise
-_(approx. 2-4 pages)_
 
 ### Exploração dos dados
 Os dados utilizados foram obtidos de duas fontes. A primeira fonte são os dados relacionados ao Índice de Desenvolvimento Humano Municipal (IDHM), disponibilizado pelo site Atlas do Desenvolvimento Humano no Brasil [7] ou no site da Kaggle [8]. Os dados do IDHM são disponibilizados para cada um dos 5565 municípios brasileiros, sendo composto por dados que podem ser agrupados em 3 dimensões: dados sobre longevidade, dados sobre o nível de acesso ao conhecimento e dados sobre a renda. O cálculo do IDHM foi realizado a partir das informações dos 3 últimos Censos Demográficos do IBGE (1991, 2000 e 2010). Neste trabalho foram utilizados os dados do IDHM de 2010.
 
-![Infográfico a respeito do cálculo do IDHM. Fonte: atlasbrasil.org.br](http://www.atlasbrasil.org.br/2013/assets/img/oAtlas/pt/como_calculado.jpg)
+![Infográfico a respeito do cálculo do IDHM - Fonte: atlasbrasil.org.br](http://www.atlasbrasil.org.br/2013/assets/img/oAtlas/pt/como_calculado.jpg)
 
 A segunda fonte são os dados relacionados à quantidade de famílias beneficiárias e o total de pagamentos disponibilizados pelo PBF para cada município brasileiro. Os dados são disponibilizados pelo Ministério da Cidadania [9]. Os dados utilizados são de janeiro de 2010, ou seja, 7 anos após o ano de lançamento do PBF, que pode ser considerado como suficiente para o programa ter atingido uma maturidade em sua operacionalização e gestão e os dados serem considerados consolidados. Também são dados que coincidem com o ano da realização do Censo, em 2010, como forma de aproximar o levantamento social realizado pelo Censo dos dados de recursos disponibilizados pelo Bolsa Família.
 
@@ -44,9 +43,9 @@ Foram identificadas 7 colunas com valores não-numéricos e de códigos pertence
 **uf**: Código do IBGE identificador da Unidade de Federação ao qual o município pertence.
 
 #### Transformação de valores
-Através da exploração inicial dos dados, verificou-se que a variável **idhm** possuía alguns registros entre 0 e 1 e o restante dos registros entre 400 e 900. Em uma verificação individual destes casos, percebeu-se que os registros estavam apenas transformados para valores entre 0 e 1. Por exemplo, para o município de Cabixi, em Rondônia, o valor que se verificou foi 0,65. Entretanto, após pesquisa no portal Atlas Brasil, este município foi avaliado com IDHM 650. 
+Através da exploração inicial dos dados, verificou-se que a variável **idhm** possuía alguns registros entre 0 e 1 e o restante dos registros entre 400 e 900. Em verificações individuais destes casos, percebeu-se que os registros estavam apenas transformados para valores entre 0 e 1. Por exemplo, para o município de Cabixi, em Rondônia, o valor que se verificou foi 0,65. Entretanto, após pesquisa no portal Atlas Brasil, este município foi avaliado com IDHM 650. 
 
-![Resumo do IDHM de Cabixi,RO.](imagens/Cabixi.png)
+![Resumo do IDHM de Cabixi - RO](imagens/Cabixi.png)
 
 Portanto, decidiu-se realizar a transformação destes casos para que todos ficassem com a mesma base. O mesmo procedimento foi realizado para **idhm_e, idhm_l, idhm_r, i_freq_prop e i_escolaridade**.
 
@@ -54,6 +53,35 @@ Portanto, decidiu-se realizar a transformação destes casos para que todos fica
 Não foram identificados dados ausentes no conjunto de dados, após a realização de busca por lacunas. Em relação aos _outliers_, nenhum caso foi interpretado como _outlier_. Todas as variáveis analisadas individualmente apresentaram distribuição normal ou distribuição normal mista, com dois picos. Foram avaliadas individualmente as variáveis **valor_repassado_bolsa_familia, qtd_familias_beneficiarias_bolsa_familia, idhm, idhm_e, idhm_l, idhm_r, i_freq_prop, i_escolaridade, theil, gini, pmpob, pind e pesotot**. 
 
 ### Visualização Exploratória
+
+#### Variáveis avaliadas individualmente através de gráficos
+Conforme relatado na seção anterior, as variáveis avaliadas individualmente foram analisadas através de gráficos que estão a seguir:
+
+* valor_repassado_bolsa_familia
+![Gráfico dos valores repassados do Bolsa Família para cada município em janeiro de 2010](imagens/grafico_dist_valor_repassado_bolsa_familia.png)
+
+* qtd_familias_beneficiarias_bolsa_familia
+![Gráfico da quantidade de famílias beneficiárias do Bolsa Família para cada município em janeiro de 2010](imagens/grafico_dist_qtd_familias_beneficiarias_bolsa_familia.png)
+
+* idhm
+![Gráfico do IDHM para cada município em 2010](imagens/grafico_dist_idhm.png)
+
+* gini
+ * Mede o grau de desigualdade existente na distribuição de indivíduos segundo a renda domiciliar per capita. Seu valor varia de 0, quando não há desigualdade (a renda domiciliar per capita de todos os indivíduos tem o mesmo valor), a 1, quando a desigualdade é máxima (apenas um indivíduo detém toda a renda).O universo de indivíduos é limitado àqueles que vivem em domicílios particulares permanentes.
+![Gráfico do índice GINI para cada município em 2010](imagens/grafico_dist_gini.png)
+
+* pmpob
+ * Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 140,00 mensais, em reais de agosto de 2010. O universo de indivíduos é limitado àqueles que vivem em domicílios particulares permanentes.
+![Gráfico do percentual de pessoas pobres para cada município em agosto de 2010](imagens/grafico_dist_pmpob.png)
+
+* pind
+ * Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 70,00 mensais, em reais de agosto de 2010. O universo de indivíduos é limitado àqueles que vivem em domicílios particulares permanentes.
+![Gráfico do percentual de pessoas extremamente pobres para cada município em agosto de 2010](imagens/grafico_dist_pind.png)
+
+* pesotot
+ * População total de cada município
+![Gráfico da quantidade total de pessoas residentes em cada município em agosto de 2010](imagens/grafico_dist_pesotot.png)
+
 In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
 - _Have you visualized a relevant characteristic or feature about the dataset or input data?_
 - _Is the visualization thoroughly analyzed and discussed?_
