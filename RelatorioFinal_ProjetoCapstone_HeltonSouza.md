@@ -36,19 +36,18 @@ A segunda fonte são os dados relacionados à quantidade de famílias beneficiá
 A primeira etapa do trabalho foi a união de ambas as fontes de dados para formar um único conjunto de dados. O resultado final é composto de 5565 linhas (correspondentes a cada município) e 241 colunas (4 colunas dos dados do Bolsa Família, incluindo a _Quantidade de Famílias Beneficiárias do Bolsa Família_ e o _Valor Repassado para Bolsa Família_, e 237 colunas dos dados para composição do IDHM).
 
 #### Tratamento de variáveis categóricas
-Foram identificadas 7 colunas com valores não-numéricos e de códigos pertencentes a domínios:
-**ano**: Sempre o mesmo ano em todas as linhas (2010)
-**codmun6, ibge, codmun7**: Códigos identificadores do município
-**município**: Nome do município
-**anomes**: Competência (mês + ano) do valor diponibilizado pelo Bolsa Família, sempre com valor "201001", que significa janeiro de 2010.
-**uf**: Código do IBGE identificador da Unidade de Federação ao qual o município pertence.
-
-Todas essas variáveis foram removidas para a continuação da análise exploratória e alimentação dos modelos de predição.
+ * Foram identificadas 7 colunas com valores não-numéricos e de códigos pertencentes a domínios:
+  * **ano**: Sempre o mesmo ano em todas as linhas (2010)
+  * **codmun6, ibge, codmun7**: Códigos identificadores do município
+  * **município**: Nome do município
+  * **anomes**: Competência (mês + ano) do valor diponibilizado pelo Bolsa Família, sempre com valor "201001", que significa janeiro de 2010.
+  * **uf**: Código do IBGE identificador da Unidade de Federação ao qual o município pertence.
+ * Todas essas variáveis foram removidas para a continuação da análise exploratória e alimentação dos modelos de predição.
 
 #### Transformação de valores
 Através da exploração inicial dos dados, verificou-se que a variável **idhm** possuía alguns registros entre 0 e 1 e o restante dos registros entre 400 e 900. Em verificações individuais destes casos, percebeu-se que os registros estavam apenas transformados para valores entre 0 e 1. Por exemplo, para o município de Cabixi, em Rondônia, o valor que se verificou foi 0,65. Entretanto, após pesquisa no portal Atlas Brasil, este município foi avaliado com IDHM 650. 
 
-![Resumo do IDHM de Cabixi - RO](http://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/Cabixi.png)
+![Resumo do IDHM de Cabixi - RO](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/Cabixi.png)
 
 Portanto, decidiu-se realizar a transformação destes casos para que todos ficassem com a mesma base. O mesmo procedimento foi realizado para **idhm_e, idhm_l, idhm_r, i_freq_prop e i_escolaridade**.
 
