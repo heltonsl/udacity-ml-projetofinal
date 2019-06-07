@@ -37,11 +37,11 @@ A primeira etapa do trabalho foi a união de ambas as fontes de dados para forma
 
 #### Tratamento de variáveis categóricas
  * Foram identificadas 7 colunas com valores não-numéricos e de códigos pertencentes a domínios:
-  * **ano**: Sempre o mesmo ano em todas as linhas (2010)
-  * **codmun6, ibge, codmun7**: Códigos identificadores do município
-  * **município**: Nome do município
-  * **anomes**: Competência (mês + ano) do valor diponibilizado pelo Bolsa Família, sempre com valor "201001", que significa janeiro de 2010.
-  * **uf**: Código do IBGE identificador da Unidade de Federação ao qual o município pertence.
+   * **ano**: Sempre o mesmo ano em todas as linhas (2010)
+   * **codmun6, ibge, codmun7**: Códigos identificadores do município
+   * **município**: Nome do município
+   * **anomes**: Competência (mês + ano) do valor diponibilizado pelo Bolsa Família, sempre com valor "201001", que significa janeiro de 2010.
+   * **uf**: Código do IBGE identificador da Unidade de Federação ao qual o município pertence.
  * Todas essas variáveis foram removidas para a continuação da análise exploratória e alimentação dos modelos de predição.
 
 #### Transformação de valores
@@ -121,16 +121,21 @@ Modelo baseado em árvore e são fáceis de entender e visualizar [13]. Suporta 
 ## III. Metodologia
 
 ### Pré-processamento dos dados
-O que mais chamou a atenção na análise exploratória dos dados foi a quantidade de variáveis existentes no conjunto de dados referentes ao cálculo do IDHM: 237 variáveis. Uma hipótese levantada no início do trabalho e que norteou a preparação dos dados foi a possibilidade de eliminar variáveis que fossem redundantes para alimentação de modelos de machine learning. Sendo assim, como primeiro passo foram eliminadas as variáveis categóricas e, em seguida, aquelas com forte relação e que agregariam muito pouco aos modelos em relação à capacidade de predição, sendo apenas informações que deixam o processamento mais lento.
+Foram realizados diretamente no Excel a união dos dados e a transformação de valores para uma mesma base, conforme relatado em sessão anterior.
 
-Para a identificação da relação entre as variáveis, foram utilizados gráficos de correlação. Cada gráfico conseguiu exibir a correlação de aproximadamente 90 variáveis (quando temos 237). Por isso, foi necessária a renderização de 8 gráficos com eliminações sucessivas. No total, foram eliminadas 76 variáveis, restando 161 variáveis para alimentar os modelos. Adicionalmente foi utilizado o **SelectKBest** como algoritmo de verificação das variáveis mais significativas, afim de evitar eliminações que viessem a prejudicar a predição dos modelos de aprendizado.
+Em seguida, o que mais chamou a atenção na análise exploratória dos dados foi a quantidade de variáveis existentes no conjunto de dados referentes ao cálculo do IDHM: 237 variáveis. Uma hipótese levantada no início do trabalho e que norteou a preparação dos dados foi a possibilidade de eliminar variáveis que fossem redundantes para alimentação de modelos de machine learning. Sendo assim, como primeiro passo foram eliminadas as variáveis categóricas e, em seguida, aquelas com forte relação e que agregariam muito pouco aos modelos em relação à capacidade de predição, sendo apenas informações que deixam o processamento mais lento.
 
-In this section, all of your preprocessing steps will need to be clearly documented, if any were necessary. From the previous section, any of the abnormalities or characteristics that you identified about the dataset will be addressed and corrected here. Questions to ask yourself when writing this section:
-- _If the algorithms chosen require preprocessing steps like feature selection or feature transformations, have they been properly documented?_
-- _Based on the **Data Exploration** section, if there were abnormalities or characteristics that needed to be addressed, have they been properly corrected?_
-- _If no preprocessing is needed, has it been made clear why?_
+Para a identificação da relação entre as variáveis, foram utilizados gráficos de correlação. Cada gráfico conseguiu exibir a correlação de aproximadamente 90 variáveis (quando temos 237). Por isso, foi necessária a renderização de 8 gráficos com eliminações sucessivas. No total, foram eliminadas 76 variáveis, restando 161 variáveis para alimentar os modelos. Adicionalmente foi utilizado o **SelectKBest** como algoritmo de verificação das variáveis mais significativas, afim de evitar eliminações que viessem a prejudicar a predição dos modelos de aprendizado. Mesmo assim, foi observado, através do _ScatterPlot_ que mesmo entre as variáveis com maior peso, havia correlação muito forte entre elas, sendo possível ainda mais eliminações.
+
+Por fim, foram verificados que não havia nenhuma variável com valores nulos.
 
 ### Implementação
+Para o treinamento dos modelos, foi realizado a separação dos dados em conjunto de treinamento e conjunto de teste, através do método _train_test_split_ da biblioteca Scikit-Learn. Como esta separação pode ser randômica a cada execução, foi utilizado o parâmetro **random_state** para não haver mudanças nesta separação a cada execução. Percebeu-se que, com diversas separações diferentes, alguns modelos tiveram _scores_ razoavelmente diferentes entre si.
+
+Todos os algoritmos apresentados em sessão anterior foram usados de forma idêntica, com os mesmos dados de treinamento e teste. O _score_ foi impresso, assim como um gráfico exibindo os valores previstos em relação aos valores reais, como a figura a seguir:
+
+ * A proximidade da linha vermelha indica a proximidade da predição em relação ao dado real
+ * ![Gráfico da predição de valores do algoritmo Linear Regression](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_scatt_linear_regression.png)
 
 ### Refinamento
 
