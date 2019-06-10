@@ -138,27 +138,45 @@ Todos os algoritmos apresentados em sessão anterior foram usados de forma idên
  * ![Gráfico da predição de valores do algoritmo Linear Regression](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_scatt_linear_regression.png)
 
 ### Refinamento
-
+Para cada algoritmo utilizado para predição, foi utilizado GridSearch [17] de forma a verificar se a mudança dos hiper-parâmetros poderiam melhorar o _score_ do modelo.
 
 ## IV. Resultados
 
 ### Avaliação e validação do modelo
+#### Regressão Linear
+O score atingido com os parâmetros-padrão foi **0,920**. Não houve melhora após a utilização do GridSearch.
 
+#### Árvore de decisão
+O score atingido com os parâmetros-padrão foi **0,887**. Não houve melhora após a utilização do GridSearch, que precisou de bastante tempo para completar.
+
+#### Floresta aleatória
+O score atingido com os parâmetros-padrão foi **0,934**. Não houve melhora após a utilização do GridSearch.
+
+#### Huber Regressor
+O score atingido com os parâmetros-padrão foi **0,920**. Não houve melhora após a utilização do GridSearch.
+
+#### Linear Support Vector Machine
+O score atingido com os parâmetros-padrão foi **0,894**. Após a utilização do GridSearch o score atingido foi **0,900**.
 
 ### Justificativa
-
+O modelo com maior _score_ foi o modelo de **Floresta aleatória** (_Random Forest_), sendo um pouco melhor que o modelo de referência **Regressão Linear** (_Linear Regression_). A sua performance na fase de treinamento teve um desempenho pior, porém aceitável. Para o problema elencado neste trabalho, _Random Forest_ mostra-se um dos melhores candidatos.
 
 ## V. Conclusão
 
 ### Visualização de forma livre
+Os dois gráficos resultantes dos modelos de Regressão Linear e Floresta aleatória são exibidos abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos.
+
+ * Regressão Linear
+ * ![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_linearRegression.png)
+
+ * Floresta Aleatória
+ * ![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_randomForest.png)
 
 ### Reflexão
 
 ### Aperfeiçoamento
 
-
 ### Referências
-
 [1] [Portal do Programa Bolsa Família. Ministério da Cidadania. ](http://mds.gov.br/assuntos/bolsa-familia)
 
 [2] [Kuhn, Daniela Dias. Tonetto, Elci da Silva. O Programa Bolsa Família e os indicadores sociais no Rio Grande do Sul. Desenvolvimento em Questão](https://www.revistas.unijui.edu.br/index.php/desenvolvimentoemquestao/article/view/5799/5303)
@@ -190,3 +208,5 @@ Todos os algoritmos apresentados em sessão anterior foram usados de forma idên
 [15] [Huber Regressor. Biblioteca scikit-learn v0.21.2](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.HuberRegressor.html#sklearn.linear_model.HuberRegressor)
 
 [16] [Select K-Best. Biblioteca scikit-learn v0.21.2](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html#sklearn.feature_selection.SelectKBest)
+
+[17] [GridSearchCV. Biblioteca scikit-learn v0.21.2](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV)
