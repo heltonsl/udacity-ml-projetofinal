@@ -172,8 +172,7 @@ Quando | Onde	| Link
  2018 | Goiânia | [Link](https://diaonline.r7.com/2019/04/10/camara-municipal-investiga-semas-e-fraudes-no-bolsa-familia-em-goiania/?utm_source=H%C3%A9lio+Lemes&utm_campaign=diaonline-author) 
  2015 | Boa Esperança do Sul | [Link](http://g1.globo.com/sp/sao-carlos-regiao/noticia/2015/10/mpf-denuncia-cinco-por-recebimento-indevido-de-valores-do-bolsa-familia.html) 
  2016 |	Bauru | [Link](http://g1.globo.com/sp/bauru-marilia/noticia/2016/12/relatorio-de-supostas-fraudes-do-bolsa-familia-em-bauru-e-concluido.html)
- 2016 | Salvador, Brasília, João Pessoa, Manaus e Recife | [Link](http://agenciabrasil.ebc.com.br/geral/noticia/2016-06/bahia-lidera-suspeitas-de-fraude-no-bolsa-familia-investigadas-pelo-mpf
-		https://g1.globo.com/economia/noticia/mais-de-326-mil-domicilios-deixaram-de-receber-bolsa-familia-em-2017-aponta-ibge.ghtml)
+ 2016 | Salvador, Brasília, João Pessoa, Manaus e Recife | [Link](http://agenciabrasil.ebc.com.br/geral/noticia/2016-06/bahia-lidera-suspeitas-de-fraude-no-bolsa-familia-investigadas-pelo-mpf)
  2011 | Boca do Acre, AM | [Link](http://g1.globo.com/am/amazonas/noticia/2011/11/policia-federal-indicia-50-por-fraude-no-programa-bolsa-familia-no-am.html)
  2013 |	Barra do Quaraí, RS | [Link](http://g1.globo.com/rs/rio-grande-do-sul/noticia/2013/12/fraude-no-bolsa-familia-beneficia-estrangeiros-e-ate-mortos-no-rs.html)
  2015 | Ilhéus | [Link](http://g1.globo.com/bahia/noticia/2015/10/fraudes-no-bolsa-familia-cancelam-mais-de-7-mil-beneficios-em-ilheus.html)
@@ -182,7 +181,7 @@ Quando | Onde	| Link
 
 Em relação aos dois municípios identificados neste trabalho, Porto Velho não foi alvo de nenhuma notícia jornalística citando especificamente o município. A cidade de São Luiz já foi alvo de supostas fraudes envolvendo o Bolsa Família, de forma generalizada ao estado do Maranhão conforme se observa nesta outra [reportagem](https://oglobo.globo.com/economia/fraudes-no-bolsa-familia-geram-prejuizo-de-13-bilhao-22255818). 
 
-Em 2016, o governo federal realizou um [pente-fino](http://mds.gov.br/area-de-imprensa/noticias/2016/novembro/pente-fino-no-bolsa-familia-encontra-irregularidades-em-1-1-milhao-de-beneficios) dos benefícios do Bolsa Família, através do cruzamento de diversas bases de dados (Relação Anual de Informações Sociais (Rais), Cadastro Geral de Empregados e Desempregados (Caged), Sistema de Controle de Óbitos (Sisobi), Instituto Nacional do Seguro Social (INSS), Sistema Integrado de Administração de Recursos Humanos (Siape) e Cadastro Nacional de Pessoas Jurídicas (CNPJ)) e identificou o que se chamou de **perfis suspeitos**, devido à inconsistências com essas bases. Esse cruzamento identificou irregularidades de 3,84% dos recursos disponibilizados pelo programa. Em parceria com esse pente-fino, o Ministério Público Federal publicou um [site](http://www.raioxbolsafamilia.mpf.mp.br/) para avaliação de mais dados, incluindo uma [ferramenta analítica](http://sig.mpf.mp.br/MicroStrategy/servlet/mstrWeb?evt=3140&src=mstrWeb.3140&documentID=DF9B91A411E6714F00000080EFB5CAD8&Server=MSTRIS.PGR.MPF.MP.BR&Project=Bolsa%20Familia&Port=0&share=1). Apesar de que o maior número de bloqueios/cancelamentos aconteceram nas capitais, são as cidades de interior que lideram o maior número relativo (proporcional ao volume de recursos disponibilizados) de bloqueios/cancelamentos.
+Em 2016, o governo federal realizou um [pente-fino](http://mds.gov.br/area-de-imprensa/noticias/2016/novembro/pente-fino-no-bolsa-familia-encontra-irregularidades-em-1-1-milhao-de-beneficios) dos benefícios do Bolsa Família, através do cruzamento de diversas bases de dados (Relação Anual de Informações Sociais (Rais), Cadastro Geral de Empregados e Desempregados (Caged), Sistema de Controle de Óbitos (Sisobi), Instituto Nacional do Seguro Social (INSS), Sistema Integrado de Administração de Recursos Humanos (Siape) e Cadastro Nacional de Pessoas Jurídicas (CNPJ)) e identificou o que se chamou de **perfis suspeitos**, devido à inconsistências com essas bases. Esse cruzamento identificou irregularidades de 3,84% dos recursos disponibilizados pelo programa. Em parceria com esse pente-fino, o Ministério Público Federal publicou um [site](http://www.raioxbolsafamilia.mpf.mp.br/) para avaliação de mais dados, incluindo uma [ferramenta analítica](http://sig.mpf.mp.br/MicroStrategy/servlet/mstrWeb?evt=3140&src=mstrWeb.3140&documentID=DF9B91A411E6714F00000080EFB5CAD8&Server=MSTRIS.PGR.MPF.MP.BR&Project=Bolsa%20Familia&Port=0&share=1). Apesar de que o maior número de bloqueios/cancelamentos aconteceram nas capitais, são as cidades de interior, menores, que lideram o maior número relativo (proporcional ao volume de recursos disponibilizados) de bloqueios/cancelamentos.
 
 Em relação à quantidade de benefícios suspeitos, São Luís foi apontado apenas como a 13o. município no ranking nacional. Porto Velho foi o 50o. município.
 
@@ -192,10 +191,10 @@ Em relação à quantidade de benefícios suspeitos, São Luís foi apontado ape
 Os dois gráficos resultantes dos modelos de Regressão Linear e Floresta aleatória são exibidos abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos.
 
  * Regressão Linear
-![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_linearRegression.png)
+ * ![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_linearRegression.png)
 
  * Floresta Aleatória
-![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_randomForest.png)
+ * ![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_randomForest.png)
 
 ### Reflexão
 
@@ -205,22 +204,24 @@ Os resultados obtidos demonstram que é possível utilizar os dados do IDHM para
 Através dos gráficos resultantes de ambos os modelos, verifica-se que o modelo de Floresta Aleatória consegue um _score_ maior aparentemente por não sofrer grande influência dos municípios com maiores valores, ou seja, mais distantes. Esses maiores valores ficam, inclusive, abaixo dos valores previstos. No caso da Regressão Linear, percebe-se um maior alinhamento aos pontos mais distantes, o que pode ter levado a uma maior discrepância para a grande maioria dos municípios com os menores valores, o que pode ter diminuído os _scores_. Estes comportamentos são confirmados pelas implementações de ambos os modelos.
 
 #### Utilizar uma base com mesma origem como dados de treinamento e de teste
-Ao utilizarmos um mesmo conjunto de dados e, aleatoriamente, selecionar parte deste conjunto de dados para servir como dados de treinamento e a outra parte como dados de teste, acaba levando os modelos a se utilizarem de algumas cidades em que, potencialmente, já se encontram com incidência de fraudes para servir como "exemplos" (na fase de treinamento) para avaliar as outras cidades que serão comparadas às primeiras (na fase de testes). Se for colocado em hipótese de que a fraude é generalizada, a conclusão é que os modelos não encontrarão grandes divergências entre as cidades. 
+Ao utilizarmos um mesmo conjunto de dados e, aleatoriamente, selecionar parte deste conjunto de dados para servir como dados de treinamento e a outra parte como dados de teste, acaba levando os modelos a se utilizarem de algumas cidades em que, potencialmente, já se encontram com incidência de fraudes para servir como "exemplos" (na fase de treinamento) para avaliar as outras cidades que serão comparadas às primeiras (na fase de testes). Se for colocado em hipótese de que a fraude é generalizada, a conclusão é que os modelos não encontrarão grandes divergências entre as cidades.
 
 #### Verificação dos casos de fraudes
-Na comparação com o resultado apontado neste trabalho e as notícias jornalísticas e o maior pente-fino realizado no programa, percebe-se que não há uma relação direta. O que pode justificar essa disparidade é que os modelos de aprendizagem de máquina vão se realizar as previsões de forma proporcional à população de cada município. Entretanto, os municípios foram elencados, respectivamente São Luis e Porto Velho, considerando uma discrepância absoluta dentre os maiores.
+Na comparação com o resultado apontado neste trabalho e as notícias jornalísticas e o maior pente-fino realizado no programa, percebe-se que não há uma relação direta. O que pode justificar essa disparidade é que os modelos de aprendizagem de máquina vão realizar as previsões de forma proporcional à população de cada município. Entretanto, os municípios foram elencados, respectivamente São Luis e Porto Velho, considerando uma discrepância absoluta dentre os maiores.
 
 ### Aperfeiçoamento
 
 #### Avaliar os modelos com base em todos os meses de 2010
+O trabalho foi realizado utilizando os dados do Bolsa Família do mês de janeiro de 2010. Os dados do IDHM foram publicados para o ano de 2010. Sendo assim, qualquer mês de 2010 poderia ser utilizado neste trabalho. Realizar a comparação entre os meses do ano também pode ser alvo de trabalhos futuros, no sentido de identificar se houve algum mês em que houveram mais fraudes no programa.
 
-#### Retirar grandes municípios da análise
+#### Separar grandes municípios da análise
+De acordo com ambos os gráficos dos modelos de Regressão Linear e Floresta aleatória, os municípios com maiores valores de recursos do Bolsa Família possuem grande distância dos valores previstos. Provavelmente, possuem relações com o IDHM diferentes dos municípios menores, que são a grande maioria. Entretanto, a busca por fraudes pode ser mais efetiva quando se identifica as causas nos pontos onde o maior volume de recursos é disponibilizado. Os grandes municípios podem ser tratados em um conjunto à parte em trabalhos futuros.
 
 #### Levantamento em ordem das maiores diferenças
+Na busca por padrões de fraudes, o que poderia melhorar para um próximo trabalho seria fazer levantamento relativo das maiores diferenças encontradas. 
 
-#### Verificação dos casos de fraudes
-Fazer levantamento relativo
-
+#### Utilizar municípios "modelo" como base de teste
+Não foram encontradas irregularidades em [21 municípios](http://www.raioxbolsafamilia.mpf.mp.br/diagnostico) brasileiros no pente-fino realizado em 2016. Seria interessante a avaliação do padrão que esses municípios podem formar quando usados para treinar o modelo. Esses municípios seriam considerados **municípios-modelo** na comparação com os outros. Entretanto, a baixa quantidade de municípios nessa lista seria um dificultador.
 
 ### Referências
 [1] [Portal do Programa Bolsa Família. Ministério da Cidadania. ](http://mds.gov.br/assuntos/bolsa-familia)
