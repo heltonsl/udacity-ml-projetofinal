@@ -20,7 +20,7 @@ Uma das respostas que se desejou responder foi: Será que existem municípios co
 Sendo assim, de posse dos dados granularizados a nível de município brasileiro, relativos à pesquisa de mapeamento do Índice de Desenvolvimento Humano Municipal (IDHM) no ano de 2010, utilizou-se modelos de machine learning que foram treinados utilizando-se os dados de parte desses municípios e foram capazes de predizer o volume financeiro da outra parte desses municípios. Em um momento inicial, a análise dos dados apontou a correlação entre os indicadores sociais e o volume financeiro do PBF associado com cada município. Em seguida, foi possível identificar alguns municípios que apontaram discrepância nessa correlação e foram apontados como municípios onde é possível que tenha sofrido uma maior influência de fraudes. 
 
 ### Métricas
-O valor a ser previsto é um valor contínuo, correspondente ao valor, em reais, que é disponibilizado para ser sacado pelos beneficiários do Bolsa Família para cada município. A métrica que foi utilizada é o Root Mean Squared Erros (RMSE), pois é uma métrica que avalia a distância entre o valor previsto e o valor real. Essa métrica é calculada pelo próprio scikit-learn comparando os valores previstos e os valores reais, através da utilização do método "score" dos modelos de regressão. O RMSE é definido como (1 - u/v), onde u é soma das diferenças ao quadrado (quadrado(real - previsto)).sum() e v é o total da soma dos quadrados (quadrado(real - média(real))).sum(). A melhor possibilidade é o valor de "score" ser 1.0 e pode ser negativo se o modelo se comportou de forma muito ruim [11]. 
+O valor a ser previsto é um valor contínuo, correspondente ao valor, em reais, que é disponibilizado para ser sacado pelos beneficiários do Bolsa Família para cada município. A métrica que foi utilizada é o R-squared (ou R2), pois é uma métrica que avalia a distância entre o valor previsto e o valor real. Essa métrica é calculada pelo próprio scikit-learn comparando os valores previstos e os valores reais, através da utilização do método "score" dos modelos de regressão. O R2 é definido como (1 - u/v), onde u é soma das diferenças ao quadrado (quadrado(real - previsto)).sum() e v é o total da soma dos quadrados (quadrado(real - média(real))).sum(). A melhor possibilidade é o valor de "score" ser 1.0 e pode ser negativo se o modelo se comportou de forma muito ruim [11]. 
 
 
 ## II. Análise
@@ -28,7 +28,7 @@ O valor a ser previsto é um valor contínuo, correspondente ao valor, em reais,
 ### Exploração dos dados
 Os dados utilizados foram obtidos de duas fontes. A primeira fonte são os dados relacionados ao Índice de Desenvolvimento Humano Municipal (IDHM), disponibilizado pelo site Atlas do Desenvolvimento Humano no Brasil [7] ou no site da Kaggle [8]. Os dados do IDHM são disponibilizados para cada um dos 5565 municípios brasileiros, sendo composto por dados que podem ser agrupados em 3 dimensões: dados sobre longevidade, dados sobre o nível de acesso ao conhecimento e dados sobre a renda. O cálculo do IDHM foi realizado a partir das informações dos 3 últimos Censos Demográficos do IBGE (1991, 2000 e 2010). Neste trabalho foram utilizados os dados do IDHM de 2010.
 
-![Infográfico a respeito do cálculo do IDHM - Fonte: atlasbrasil.org.br](http://www.atlasbrasil.org.br/2013/assets/img/oAtlas/pt/como_calculado.jpg)
+![Infográfico a respeito do cálculo do IDHM - Fonte: atlasbrasil.org.br](imagens/idhm.jpg)
 
 A segunda fonte são os dados relacionados à quantidade de famílias beneficiárias e o total de pagamentos disponibilizados pelo PBF para cada município brasileiro. Os dados são disponibilizados pelo Ministério da Cidadania [9]. Os dados utilizados são de janeiro de 2010, ou seja, 7 anos após o ano de lançamento do PBF, que pode ser considerado como suficiente para o programa ter atingido uma maturidade em sua operacionalização e gestão e os dados serem considerados consolidados. Também são dados que coincidem com o ano da realização do Censo, em 2010, como forma de aproximar o levantamento social realizado pelo Censo dos dados de recursos disponibilizados pelo Bolsa Família.
 
@@ -47,7 +47,7 @@ A primeira etapa do trabalho foi a união de ambas as fontes de dados para forma
 #### Transformação de valores
 Através da exploração inicial dos dados, verificou-se que a variável **idhm** possuía alguns registros entre 0 e 1 e o restante dos registros entre 400 e 900. Em verificações individuais destes casos, percebeu-se que os registros estavam apenas transformados para valores entre 0 e 1. Por exemplo, para o município de Cabixi, em Rondônia, o valor que se verificou foi 0,65. Entretanto, após pesquisa no portal Atlas Brasil, este município foi avaliado com IDHM 650. 
 
-![Resumo do IDHM de Cabixi - RO](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/Cabixi.png)
+![Resumo do IDHM de Cabixi - RO](imagens/Cabixi.png)
 
 Portanto, decidiu-se realizar a transformação destes casos para que todos ficassem com a mesma base. O mesmo procedimento foi realizado para **idhm_e, idhm_l, idhm_r, i_freq_prop e i_escolaridade**.
 
@@ -61,37 +61,37 @@ Conforme relatado na seção anterior, as variáveis avaliadas individualmente f
 
 ##### valor_repassado_bolsa_familia
  * Grande parte dos municípios recebe até 100 mil reais. A quantidade de municípios com valor maior que 200 mil reais está em torno de 25%
- * ![Gráfico dos valores repassados do Bolsa Família para cada município em janeiro de 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_valor_repassado_bolsa_familia.png)
+ * ![Gráfico dos valores repassados do Bolsa Família para cada município em janeiro de 2010](imagens/grafico_dist_valor_repassado_bolsa_familia.png)
 
 ##### qtd_familias_beneficiarias_bolsa_familia
  * Grande parte dos municípios possui até mil famílias beneficiadas. A quantidade de municípios com mais de 2 mil famílias beneficiárias está em torno de 25%. O maior valor é 181531 família beneficiárias.
- * ![Gráfico da quantidade de famílias beneficiárias do Bolsa Família para cada município em janeiro de 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_qtd_familias_beneficiarias_bolsa_familia.png)
+ * ![Gráfico da quantidade de famílias beneficiárias do Bolsa Família para cada município em janeiro de 2010](imagens/grafico_dist_qtd_familias_beneficiarias_bolsa_familia.png)
 
 ##### idhm
  * Índice de Desenvolvimento Humano do Município. É uma distribuição normal mista, com dois pontos de picos, próximo dos valores 600 e 720. O menor valor é 418 e o maior é 862.
- * ![Gráfico do IDHM para cada município em 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_idhm.png)
+ * ![Gráfico do IDHM para cada município em 2010](imagens/grafico_dist_idhm.png)
 
 ##### gini
  * Mede o grau de desigualdade existente na distribuição de indivíduos segundo a renda domiciliar per capita. Seu valor varia de 0, quando não há desigualdade (a renda domiciliar per capita de todos os indivíduos tem o mesmo valor), a 1, quando a desigualdade é máxima (apenas um indivíduo detém toda a renda).O universo de indivíduos é limitado àqueles que vivem em domicílios particulares permanentes.
-* ![Gráfico do índice GINI para cada município em 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_gini.png)
+* ![Gráfico do índice GINI para cada município em 2010](imagens/grafico_dist_gini.png)
 
 ##### pmpob
  * Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 140,00 mensais, em reais de agosto de 2010. O universo de indivíduos é limitado àqueles que vivem em domicílios particulares permanentes.
- * ![Gráfico do percentual de pessoas pobres para cada município em agosto de 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_pmpob.png)
+ * ![Gráfico do percentual de pessoas pobres para cada município em agosto de 2010](imagens/grafico_dist_pmpob.png)
 
 ##### pind
  * Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 70,00 mensais, em reais de agosto de 2010. O universo de indivíduos é limitado àqueles que vivem em domicílios particulares permanentes.
- * ![Gráfico do percentual de pessoas extremamente pobres para cada município em agosto de 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_pind.png)
+ * ![Gráfico do percentual de pessoas extremamente pobres para cada município em agosto de 2010](imagens/grafico_dist_pind.png)
 
 ##### pesotot
  * População total de cada município
- * ![Gráfico da quantidade total de pessoas residentes em cada município em agosto de 2010](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_dist_pesotot.png)
+ * ![Gráfico da quantidade total de pessoas residentes em cada município em agosto de 2010](imagens/grafico_dist_pesotot.png)
 
 #### Análise de variáveis correlacionadas
 
 ##### Gráfico de correlação
  * Foram utilizados gráficos de correlação para avaliar se haviam variáveis com forte correlação e pudessem ser eliminadas do modelo sem perda de informação relevante para a fase de predição.
- * ![Gráfico de correlação utilizado na primeira etapa.](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_corr_primeiraEtapa.png)
+ * ![Gráfico de correlação utilizado na primeira etapa.](imagens/grafico_corr_primeiraEtapa.png)
 
 ### Algoritmos e técnicas
 Para este trabalho, foi tomado como premissa que existe uma relação linear entre as variáveis que compõem o IDHM e o valor repassado para o Bolsa Família. Ou seja, quanto mais baixo o IDHM, maior é o valor proporcional à população do repasse de verbas referente ao Bolsa Família. Portanto, as características deste problema apontam que existem variáveis dependentes de forma linear às variáveis independentes. Sobre a existência de outliers, não foram identificados casos que pudessem se caracterizados como tal, mesmo considerando as grandes capitais brasileiras em que o volume de recursos do Bolsa Família é bem maior do que a grande maioria dos outros municípios. Entende-se que há uma relação linear com a população residente em cada município.
@@ -135,7 +135,7 @@ Para o treinamento dos modelos, foi realizado a separação dos dados em conjunt
 Todos os algoritmos apresentados em sessão anterior foram usados de forma idêntica, com os mesmos dados de treinamento e teste. O _score_ foi impresso, assim como um gráfico exibindo os valores previstos em relação aos valores reais, como a figura a seguir:
 
  * A proximidade da linha vermelha indica a proximidade da predição em relação ao dado real
- * ![Gráfico da predição de valores do algoritmo Linear Regression](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_scatt_linear_regression.png)
+ * ![Gráfico da predição de valores do algoritmo Linear Regression](imagens/grafico_scatt_linear_regression.png)
 
 ### Refinamento
 Para cada algoritmo utilizado para predição, foi utilizado GridSearch [17] de forma a verificar se a mudança dos hiper-parâmetros poderiam melhorar o _score_ do modelo.
@@ -191,10 +191,10 @@ Em relação à quantidade de benefícios suspeitos, São Luís foi apontado ape
 Os dois gráficos resultantes dos modelos de Regressão Linear e Floresta aleatória são exibidos abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos.
 
  * Regressão Linear
- * ![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_linearRegression.png)
+ * ![](imagens/grafico_result_linearRegression.png)
 
  * Floresta Aleatória
- * ![](https://github.com/heltonsl/udacity-ml-projetofinal/blob/master/imagens/grafico_result_randomForest.png)
+ * ![](imagens/grafico_result_randomForest.png)
 
 ### Reflexão
 
