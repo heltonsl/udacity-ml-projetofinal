@@ -90,7 +90,7 @@ Conforme relatado na seção anterior, as variáveis avaliadas individualmente f
 #### Análise de variáveis correlacionadas
 
 ##### Gráfico de correlação
- * Foram utilizados gráficos de correlação para avaliar se haviam variáveis com forte correlação e pudessem ser eliminadas do modelo sem perda de informação relevante para a fase de predição.
+ * Foram utilizados gráficos de correlação para avaliar se haviam variáveis com forte correlação e pudessem ser eliminadas do modelo sem perda de informação relevante para a fase de predição. Esses gráficos avaliam a relação de cada **par** de variáveis.
  * ![Gráfico de correlação utilizado na primeira etapa.](imagens/grafico_corr_primeiraEtapa.png)
 
 ### Algoritmos e técnicas
@@ -123,14 +123,14 @@ Modelo baseado em árvore e são fáceis de entender e visualizar [13]. Suporta 
 ### Pré-processamento dos dados
 Foram realizados diretamente no Excel a união dos dados e a transformação de valores para uma mesma base, conforme relatado em sessão anterior.
 
-Em seguida, o que mais chamou a atenção na análise exploratória dos dados foi a quantidade de variáveis existentes no conjunto de dados referentes ao cálculo do IDHM: 237 variáveis. Uma hipótese levantada no início do trabalho e que norteou a preparação dos dados foi a possibilidade de eliminar variáveis que fossem redundantes para alimentação de modelos de machine learning. Sendo assim, como primeiro passo foram eliminadas as variáveis categóricas e, em seguida, aquelas com forte relação e que agregariam muito pouco aos modelos em relação à capacidade de predição, sendo apenas informações que deixam o processamento mais lento.
+Em seguida, o que mais chamou a atenção na análise exploratória dos dados foi a quantidade de variáveis existentes no conjunto de dados referentes ao cálculo do IDHM: 237 variáveis. Uma hipótese levantada no início do trabalho e que norteou a preparação dos dados foi a possibilidade de eliminar variáveis que fossem redundantes para alimentação de modelos de machine learning. Sendo assim, como primeiro passo foram eliminadas as variáveis categóricas e, em seguida, aquelas com forte relação e que agregariam muito pouco aos modelos em relação à capacidade de predição, sendo apenas informações que deixam o processamento mais lento. 
 
-Para a identificação da relação entre as variáveis, foram utilizados gráficos de correlação. Cada gráfico conseguiu exibir a correlação de aproximadamente 90 variáveis (quando temos 237). Por isso, foi necessária a renderização de 8 gráficos com eliminações sucessivas. No total, foram eliminadas 76 variáveis, restando 161 variáveis para alimentar os modelos. Adicionalmente foi utilizado o **SelectKBest** como algoritmo de verificação das variáveis mais significativas, afim de evitar eliminações que viessem a prejudicar a predição dos modelos de aprendizado. Mesmo assim, foi observado, através do _ScatterPlot_ que mesmo entre as variáveis com maior peso, havia correlação muito forte entre elas, sendo possível ainda mais eliminações.
+Para a identificação da relação entre as variáveis, foram utilizados gráficos de correlação, conforme apresentado na seção anterior. Cada gráfico conseguiu exibir a correlação de aproximadamente 90 variáveis (quando temos 237). Por isso, foi necessária a renderização de 8 gráficos com eliminações sucessivas. No total, foram eliminadas 76 variáveis, restando 161 variáveis para alimentar os modelos. As variáveis eliminadas são aquelas que estão na parte mais clara do gráfico, pois são as relações com índice muito próximo de 1 (altamente relacionadas entre si).
 
 Por fim, foram verificados que não havia nenhuma variável com valores nulos.
 
 ### Implementação
-Para o treinamento dos modelos, foi realizado a separação dos dados em conjunto de treinamento e conjunto de teste, através do método _train_test_split_ da biblioteca Scikit-Learn. Como esta separação pode ser randômica a cada execução, foi utilizado o parâmetro **random_state** para não haver mudanças nesta separação a cada execução. Percebeu-se que, com diversas separações diferentes, alguns modelos tiveram _scores_ razoavelmente diferentes entre si.
+Para o treinamento dos modelos, foi realizado a separação dos dados em conjunto de treinamento e conjunto de teste, através do método _train_test_split_ da biblioteca Scikit-Learn, com os parâmetros padrão, ou seja, com 25% dos dados para teste e 75% dos dados para treinamento, escolhidos de forma aleatória. Como esta separação pode ser randômica a cada execução, foi utilizado o parâmetro **random_state** para não haver mudanças nesta separação a cada execução. Percebeu-se que, com diversas separações diferentes, alguns modelos tiveram _scores_ razoavelmente diferentes entre si.
 
 Todos os algoritmos apresentados em sessão anterior foram usados de forma idêntica, com os mesmos dados de treinamento e teste. O _score_ foi impresso, assim como um gráfico exibindo os valores previstos em relação aos valores reais, como a figura a seguir:
 
