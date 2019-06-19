@@ -130,7 +130,7 @@ Para a identificação da relação entre as variáveis, foram utilizados gráfi
 Por fim, foram verificados que não havia nenhuma variável com valores nulos.
 
 ### Implementação
-Para o treinamento dos modelos, foi realizado a separação dos dados em conjunto de treinamento e conjunto de teste, através do método _train_test_split_ da biblioteca Scikit-Learn, com os parâmetros padrão, ou seja, com 25% dos dados para teste e 75% dos dados para treinamento, escolhidos de forma aleatória. Como esta separação pode ser randômica a cada execução, foi utilizado o parâmetro **random_state** para não haver mudanças nesta separação a cada execução. Percebeu-se que, com diversas separações diferentes, alguns modelos tiveram _scores_ razoavelmente diferentes entre si.
+Para o treinamento dos modelos, foi realizado a separação dos dados em conjunto de treinamento e conjunto de teste, através do método _train_test_split_ da biblioteca Scikit-Learn, com os parâmetros padrão, ou seja, com 25% dos dados para teste e 75% dos dados para treinamento, escolhidos de forma aleatória. Percebeu-se que, com diversas separações diferentes, alguns modelos tiveram _scores_ razoavelmente diferentes entre si.
 
 Todos os algoritmos apresentados em sessão anterior foram usados de forma idêntica, com os mesmos dados de treinamento e teste. O _score_ foi impresso, assim como um gráfico exibindo os valores previstos em relação aos valores reais, como a figura a seguir:
 
@@ -138,32 +138,46 @@ Todos os algoritmos apresentados em sessão anterior foram usados de forma idên
  * ![Gráfico da predição de valores do algoritmo Linear Regression](imagens/grafico_scatt_linear_regression.png)
 
 ### Refinamento
-Para cada algoritmo utilizado para predição, foi utilizado GridSearch [17] de forma a verificar se a mudança dos hiper-parâmetros poderiam melhorar o _score_ do modelo.
+Para cada algoritmo utilizado para predição, foi utilizado _GridSearch_ [17] de forma a verificar se a mudança dos hiper-parâmetros poderiam melhorar o _score_ do modelo. O GridSearch executa as fases de treinamento e teste para cada parâmetro listado e calcula o _score_ que em nosso caso é o R2. Por fim, o GridSearch compara os valores do _score_ e exibe quais foram os parâmetros em que o maior _score_ foi obtido. O GridSearch também implementa uma estratégia de _cross validation_ [18] que foi utilizado nesse trabalho, instaciando a estratégia de _5-Fold_, que consiste na quebra do conjunto de dados em 5 subconjuntos para o qual o modelo é treinado em 4 subconjuntos e o modelo é avaliado no último subconjunto de forma o _score_ resultante é a média dos _scores_ de todas as iterações.
+
+#### Regressão Linear
+Foi utilizado o parâmetro `fit_intercept`, testado com os valores `True` e `False`. 
+
+#### Árvore de decisão
+Os parâmetros utilizados com seus respectivos valores testados foram: `criterion:('mse','friedman_mse','mae')`, `splitter:('best','random')`, `min_samples_split:[2,4,6,8,10]` e `min_samples_leaf:[1,5,10]`.
+
+#### Floresta aleatória
+Os parâmetros utilizados com seus respectivos valores testados foram: `criterion:('mse','friedman_mse','mae')`, `n_estimators:[10,15]`, `min_samples_split:[2,4]` e `min_samples_leaf:[1,5]`.
+
+#### Huber Regressor
+Os parâmetros utilizados com seus respectivos valores testados foram: `epsilon:[1.0, 1.2, 1.35,1.5]`, `max_iter:[100,200,500]`,`alpha:[.0001,.0002,.001]` e `fit_intercept:('True', 'False')`. Com a estratégia de _cross-validation_ 5-Fold este modelo não conseguiu convergir. Quando realizada a alteração para 4-Fold, foi possível a convergência.
+
+#### Linear Support Vector Machine
+Os parâmetros utilizados com seus respectivos valores testados foram: `loss:('epsilon_insensitive', 'squared_epsilon_insensitive')`, `C:[1, 10]` e `max_iter:[1000, 10000]`. Foi utilizada a estratégia de _cross validation_ 3-Fold.
 
 ## IV. Resultados
 
 ### Avaliação e validação do modelo
 #### Regressão Linear
-O score atingido com os parâmetros-padrão foi **0,920**. Não houve melhora após a utilização do GridSearch.
+O score atingido foi de **0,908**. Os melhores parâmetros encontrados através do GridSearch foram: `{'fit_intercept': 'True'}`.
 
 #### Árvore de decisão
-O score atingido com os parâmetros-padrão foi **0,887**. Não houve melhora após a utilização do GridSearch, que precisou de bastante tempo para completar.
+O score atingido com os parâmetros otimizados pelo GridSearch foi **0,835**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 5, 'criterion': 'mse', 'splitter': 'random', 'min_samples_split': 2}`.
 
 #### Floresta aleatória
-O score atingido com os parâmetros-padrão foi **0,934**. Não houve melhora após a utilização do GridSearch.
+O score atingido com os parâmetros otimizados pelo GridSearch foi **0,787**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 1, 'criterion': 'mse', 'n_estimators': 10, 'min_samples_split': 2}`.
 
 #### Huber Regressor
-O score atingido com os parâmetros-padrão foi **0,920**. Não houve melhora após a utilização do GridSearch.
+O score atingido com os parâmetros otimizados pelo GridSearch foi **0,851**. Os melhores parâmetros encontrados através do GridSearch foram: `{'fit_intercept': 'True', 'alpha': 0.001, 'max_iter': 500, 'epsilon': 1.35}`.
 
 #### Linear Support Vector Machine
-O score atingido com os parâmetros-padrão foi **0,894**. Após a utilização do GridSearch o score atingido foi **0,900**.
+O score atingido com os parâmetros-padrão foi **0,302**. Os melhores parâmetros encontrados através do GridSearch foram: `{'max_iter': 100000, 'C': 1, 'loss': 'epsilon_insensitive'}`. Apesar do baixo valor de _score_ na avaliação final, o modelo atingiu uma média de _score_ na fase de _cross validation_, o que é um indício de que a seleção do corte dos dados para treinamento faz uma grande diferença no comportamento dos modelos.
 
 ### Justificativa
-O modelo com maior _score_ foi o modelo de **Floresta aleatória** (_Random Forest_), sendo um pouco melhor que o modelo de referência **Regressão Linear** (_Linear Regression_). A sua performance na fase de treinamento teve um desempenho pior, porém aceitável. Para o problema elencado neste trabalho, _Random Forest_ mostra-se um dos melhores candidatos.
+O modelo com maior _score_ foi o modelo de **Regressão Linear**, conforme foi colocado como referência. O modelo atingiu um _score_ médio de **0,945** na fase de _cross validation_. Pelos indícios de que a seleção dos registros para fase de treinamento e teste fazem uma grande diferença para o cálculo do _score_, é possível que os modelos tenham performances diferentes em outras seleções de dados. Existem alguns poucos municípios brasileiros, geralmente capitais, com população bem maior que a grande maioria dos outros municípios e podem afetar o modelo diferentemente. 
 
 ### Verificação dos casos de fraudes
-
-Na verificação dos dois casos com maior diferença entre o valor previsto e o valor real, desde que o valor real tenha sido maior, encontrou-se os municípios de São Luís-MA e Porto Velho-RO, com uma diferença de mais de 2 milhões de reais e de 600 mil reais respectivamente. Em busca realizada na internet para avaliar as publicações jornalísticas sobre fraudes no Bolsa-Família, encontrou-se a seguinte lista:
+Na verificação dos dois casos com maior diferença entre o valor previsto e o valor real, desde que o valor real tenha sido maior, encontrou-se os municípios de Recife-PE e Campinas-SP com uma diferença de mais de 4 milhões de reais e mais de 2 milhões de reais respectivamente. Em busca realizada na internet para avaliar as publicações jornalísticas sobre fraudes no Bolsa-Família, encontrou-se a seguinte lista:
 
 Quando | Onde	| Link 
 -------|--------|------
@@ -179,35 +193,31 @@ Quando | Onde	| Link
  2015 | Nova Ponte, MG | [Link](http://g1.globo.com/minas-gerais/triangulo-mineiro/noticia/2015/10/policia-federal-investiga-fraudes-no-bolsa-familia-em-nova-ponte.html)
  2016 | Maranhão | [Link](http://g1.globo.com/ma/maranhao/noticia/2016/11/fraude-do-bolsa-familia-no-maranhao-pode-passar-dos-r-70-milhoes.html)
 
-Em relação aos dois municípios identificados neste trabalho, Porto Velho não foi alvo de nenhuma notícia jornalística citando especificamente o município. A cidade de São Luiz já foi alvo de supostas fraudes envolvendo o Bolsa Família, de forma generalizada ao estado do Maranhão conforme se observa nesta outra [reportagem](https://oglobo.globo.com/economia/fraudes-no-bolsa-familia-geram-prejuizo-de-13-bilhao-22255818). 
+Em relação aos dois municípios identificados neste trabalho, Recife já havia sido apontado como um local provável de fraudes e a cidade de Campinas-SP estaria inserida nas notícias sobre o Estado de São Paulo.
 
 Em 2016, o governo federal realizou um [pente-fino](http://mds.gov.br/area-de-imprensa/noticias/2016/novembro/pente-fino-no-bolsa-familia-encontra-irregularidades-em-1-1-milhao-de-beneficios) dos benefícios do Bolsa Família, através do cruzamento de diversas bases de dados (Relação Anual de Informações Sociais (Rais), Cadastro Geral de Empregados e Desempregados (Caged), Sistema de Controle de Óbitos (Sisobi), Instituto Nacional do Seguro Social (INSS), Sistema Integrado de Administração de Recursos Humanos (Siape) e Cadastro Nacional de Pessoas Jurídicas (CNPJ)) e identificou o que se chamou de **perfis suspeitos**, devido à inconsistências com essas bases. Esse cruzamento identificou irregularidades de 3,84% dos recursos disponibilizados pelo programa. Em parceria com esse pente-fino, o Ministério Público Federal publicou um [site](http://www.raioxbolsafamilia.mpf.mp.br/) para avaliação de mais dados, incluindo uma [ferramenta analítica](http://sig.mpf.mp.br/MicroStrategy/servlet/mstrWeb?evt=3140&src=mstrWeb.3140&documentID=DF9B91A411E6714F00000080EFB5CAD8&Server=MSTRIS.PGR.MPF.MP.BR&Project=Bolsa%20Familia&Port=0&share=1). Apesar de que o maior número de bloqueios/cancelamentos aconteceram nas capitais, são as cidades de interior, menores, que lideram o maior número relativo (proporcional ao volume de recursos disponibilizados) de bloqueios/cancelamentos.
 
-Em relação à quantidade de benefícios suspeitos, São Luís foi apontado apenas como a 13o. município no ranking nacional. Porto Velho foi o 50o. município.
+Em relação à quantidade de benefícios suspeitos, Recife foi apontado apenas como a 9o. município no ranking nacional, para valores desviados brutos. Campinas corresponde ao 48o. município.
 
 ## V. Conclusão
 
 ### Visualização de forma livre
-Os dois gráficos resultantes dos modelos de Regressão Linear e Floresta aleatória são exibidos abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos.
+O gráfico resultante do modelo de Regressão Linear é exibido abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos.
 
  * Regressão Linear
  * ![](imagens/grafico_result_linearRegression.png)
 
- * Floresta Aleatória
- * ![](imagens/grafico_result_randomForest.png)
 
 ### Reflexão
 
 #### Acurácia dos modelos
-Os resultados obtidos demonstram que é possível utilizar os dados do IDHM para prever qual o volume de recursos do Bolsa Família que será disponibilizado para determinado município. Este foi o principal problema que este trabalho se propôs a resolver. É possível concluir que os modelos utilizados tiveram alta acurácia, devido aos valores dos _scores_, indicando que diversos dos modelos testados poderiam ser utilizados. A diferença entre o modelo de Regressão Linear (modelo de referência) e de Floresta aleatória tiveram resultados muito próximos, embora podemos considerar difícil a otimização de modelos com os _scores_ apresentados, sendo assim essa diferença não pode ser ignorada.
-
-Através dos gráficos resultantes de ambos os modelos, verifica-se que o modelo de Floresta Aleatória consegue um _score_ maior aparentemente por não sofrer grande influência dos municípios com maiores valores, ou seja, mais distantes. Esses maiores valores ficam, inclusive, abaixo dos valores previstos. No caso da Regressão Linear, percebe-se um maior alinhamento aos pontos mais distantes, o que pode ter levado a uma maior discrepância para a grande maioria dos municípios com os menores valores, o que pode ter diminuído os _scores_. Estes comportamentos são confirmados pelas implementações de ambos os modelos.
+Os resultados obtidos demonstram que é possível utilizar os dados do IDHM para prever qual o volume de recursos do Bolsa Família que será disponibilizado para determinado município. Este foi o principal problema que este trabalho se propôs a resolver. É possível concluir que os modelos utilizados tiveram alta acurácia, devido aos valores dos _scores_, indicando que diversos dos modelos testados poderiam ser utilizados, pois em outras seleções randômicas da massa de treinamento e de testes, os modelos tiveram _scores_ diferentes, e outros modelos figuraram com maiores _scores_ do que o modelo de Regressão Linear.
 
 #### Utilizar uma base com mesma origem como dados de treinamento e de teste
 Ao utilizarmos um mesmo conjunto de dados e, aleatoriamente, selecionar parte deste conjunto de dados para servir como dados de treinamento e a outra parte como dados de teste, acaba levando os modelos a se utilizarem de algumas cidades em que, potencialmente, já se encontram com incidência de fraudes para servir como "exemplos" (na fase de treinamento) para avaliar as outras cidades que serão comparadas às primeiras (na fase de testes). Se for colocado em hipótese de que a fraude é generalizada, a conclusão é que os modelos não encontrarão grandes divergências entre as cidades.
 
 #### Verificação dos casos de fraudes
-Na comparação com o resultado apontado neste trabalho e as notícias jornalísticas e o maior pente-fino realizado no programa, percebe-se que não há uma relação direta. O que pode justificar essa disparidade é que os modelos de aprendizagem de máquina vão realizar as previsões de forma proporcional à população de cada município. Entretanto, os municípios foram elencados, respectivamente São Luis e Porto Velho, considerando uma discrepância absoluta dentre os maiores.
+Na comparação com o resultado apontado neste trabalho e as notícias jornalísticas e o maior pente-fino realizado no programa, percebe-se que não há uma relação direta. O que pode justificar essa disparidade é que os modelos de aprendizagem de máquina vão realizar as previsões de forma proporcional à população de cada município. Entretanto, foi considerada a discrepância absoluta para elencar os municípios com os maiores desvios.
 
 ### Aperfeiçoamento
 
@@ -215,7 +225,7 @@ Na comparação com o resultado apontado neste trabalho e as notícias jornalís
 O trabalho foi realizado utilizando os dados do Bolsa Família do mês de janeiro de 2010. Os dados do IDHM foram publicados para o ano de 2010. Sendo assim, qualquer mês de 2010 poderia ser utilizado neste trabalho. Realizar a comparação entre os meses do ano também pode ser alvo de trabalhos futuros, no sentido de identificar se houve algum mês em que houveram mais fraudes no programa.
 
 #### Separar grandes municípios da análise
-De acordo com ambos os gráficos dos modelos de Regressão Linear e Floresta aleatória, os municípios com maiores valores de recursos do Bolsa Família possuem grande distância dos valores previstos. Provavelmente, possuem relações com o IDHM diferentes dos municípios menores, que são a grande maioria. Entretanto, a busca por fraudes pode ser mais efetiva quando se identifica as causas nos pontos onde o maior volume de recursos é disponibilizado. Os grandes municípios podem ser tratados em um conjunto à parte em trabalhos futuros.
+É possível que existam relações com o IDHM diferentes dos municípios menores, que são a grande maioria, em relação aos maiores. Entretanto, a busca por fraudes pode ser mais efetiva quando se identifica as causas nos pontos onde o maior volume de recursos é disponibilizado. Os grandes municípios podem ser tratados em um conjunto à parte em trabalhos futuros.
 
 #### Levantamento em ordem das maiores diferenças
 Na busca por padrões de fraudes, o que poderia melhorar para um próximo trabalho seria fazer levantamento relativo das maiores diferenças encontradas. 
@@ -257,3 +267,5 @@ Não foram encontradas irregularidades em [21 municípios](http://www.raioxbolsa
 [16] [Select K-Best. Biblioteca scikit-learn v0.21.2](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html#sklearn.feature_selection.SelectKBest)
 
 [17] [GridSearchCV. Biblioteca scikit-learn v0.21.2](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV)
+
+[18] [Cross-validation: evaluating estimator performance. Biblioteca scikit-learn v0.21.2](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation)
