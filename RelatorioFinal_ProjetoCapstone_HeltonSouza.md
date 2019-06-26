@@ -90,7 +90,7 @@ Conforme relatado na seção anterior, as variáveis avaliadas individualmente f
 #### Análise de variáveis correlacionadas
 
 ##### Gráfico de correlação
- * Foram utilizados gráficos de correlação para avaliar se haviam variáveis com forte correlação e pudessem ser eliminadas do modelo sem perda de informação relevante para a fase de predição. Esses gráficos avaliam a relação de cada **par** de variáveis.
+ * Foram utilizados gráficos de calor a partir da matriz de correlação para avaliar se haviam variáveis com forte correlação e pudessem ser eliminadas do modelo sem perda de informação relevante para a fase de predição. A matriz de correlação possui a relação de cada **par** de variáveis. Abaixo, um dos gráficos utilizados:
  * ![Gráfico de correlação utilizado na primeira etapa.](imagens/grafico_corr_primeiraEtapa.png)
 
 ### Algoritmos e técnicas
@@ -123,9 +123,11 @@ Modelo baseado em árvore e são fáceis de entender e visualizar [13]. Suporta 
 ### Pré-processamento dos dados
 Foram realizados diretamente no Excel a união dos dados e a transformação de valores para uma mesma base, conforme relatado em sessão anterior.
 
-Em seguida, o que mais chamou a atenção na análise exploratória dos dados foi a quantidade de variáveis existentes no conjunto de dados referentes ao cálculo do IDHM: 237 variáveis. Uma hipótese levantada no início do trabalho e que norteou a preparação dos dados foi a possibilidade de eliminar variáveis que fossem redundantes para alimentação de modelos de machine learning. Sendo assim, como primeiro passo foram eliminadas as variáveis categóricas e, em seguida, aquelas com forte relação e que agregariam muito pouco aos modelos em relação à capacidade de predição, sendo apenas informações que deixam o processamento mais lento. 
+Em seguida, o que mais chamou a atenção na análise exploratória dos dados foi a quantidade de variáveis existentes no conjunto de dados referentes ao cálculo do IDHM: 232 variáveis. Uma hipótese levantada no início do trabalho e que norteou a preparação dos dados foi a possibilidade de eliminar variáveis que fossem redundantes para alimentação de modelos de machine learning. Sendo assim, como primeiro passo foram eliminadas as variáveis categóricas e, em seguida, aquelas com forte relação e que agregariam muito pouco aos modelos em relação à capacidade de predição, sendo apenas informações que deixam o processamento mais lento. O critério utilizado para a exclusão das variáveis foi àquelas cujo grau de correlação fosse maior do que 0.999. 
 
-Para a identificação da relação entre as variáveis, foram utilizados gráficos de correlação, conforme apresentado na seção anterior. Cada gráfico conseguiu exibir a correlação de aproximadamente 90 variáveis (quando temos 237). Por isso, foi necessária a renderização de 8 gráficos com eliminações sucessivas. No total, foram eliminadas 76 variáveis, restando 161 variáveis para alimentar os modelos. As variáveis eliminadas são aquelas que estão na parte mais clara do gráfico, pois são as relações com índice muito próximo de 1 (altamente relacionadas entre si).
+Foram utilizados gráficos de calor, tendo como fonte a matriz de correlação, conforme apresentado na seção anterior. A matriz de correlação foi salva em um arquivo .csv à parte para análise manual. No total, foram eliminadas 60 variáveis, restando 172 variáveis para alimentar os modelos. As variáveis eliminadas são aquelas que estão na parte mais clara do gráfico, pois são as relações com índice muito próximo de 1 (altamente relacionadas entre si). Abaixo, o mapa de calor exibe menos áreas claras, o que comprova que foram diminuídas as correlações entre os pares de variáveis
+
+![Gráfico de correlação utilizado após remoção de variáveis.](imagens/grafico_corr_segundaEtapa.png)
 
 Por fim, foram verificados que não havia nenhuma variável com valores nulos.
 
@@ -159,10 +161,10 @@ Os parâmetros utilizados com seus respectivos valores testados foram: `loss:('e
 
 ### Avaliação e validação do modelo
 #### Regressão Linear
-O score atingido foi de **0,908**. Os melhores parâmetros encontrados através do GridSearch foram: `{'fit_intercept': 'True'}`.
+O score atingido foi de **0,945**. Os melhores parâmetros encontrados através do GridSearch foram: `{'fit_intercept': 'True'}`.
 
 #### Árvore de decisão
-O score atingido com os parâmetros otimizados pelo GridSearch foi **0,835**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 5, 'criterion': 'mse', 'splitter': 'random', 'min_samples_split': 2}`.
+O score atingido com os parâmetros otimizados pelo GridSearch foi **0,681**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 1, 'criterion': 'mse', 'splitter': 'random', 'min_samples_split': 8}`.
 
 #### Floresta aleatória
 O score atingido com os parâmetros otimizados pelo GridSearch foi **0,787**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 1, 'criterion': 'mse', 'n_estimators': 10, 'min_samples_split': 2}`.
