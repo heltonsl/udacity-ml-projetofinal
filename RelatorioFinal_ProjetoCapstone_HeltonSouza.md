@@ -179,7 +179,7 @@ O score atingido com os parâmetros-padrão foi **0,946**. Os melhores parâmetr
 O modelo com maior _score_ foi o modelo de **Huber Regressor**, atingindo um _score_ médio de **0,959** na fase de _cross validation_. Pelos indícios de que a seleção dos registros para fase de treinamento e teste fazem uma grande diferença para o cálculo do _score_, é possível que os modelos tenham performances diferentes em outras seleções de dados. Existem alguns poucos municípios brasileiros, geralmente capitais, com população bem maior que a grande maioria dos outros municípios e podem afetar o modelo diferentemente. Os modelos de **Regressão Linear** e **Linear SVM** obtiveram scores muito próximos.
 
 ### Verificação dos casos de fraudes
-Na verificação dos dois casos com maior diferença entre o valor previsto e o valor real, desde que o valor real tenha sido maior, encontrou-se os municípios de Recife-PE e Campinas-SP com uma diferença de mais de 4 milhões de reais e mais de 2 milhões de reais respectivamente. Em busca realizada na internet para avaliar as publicações jornalísticas sobre fraudes no Bolsa-Família, encontrou-se a seguinte lista:
+Na verificação dos dois casos com maior diferença entre o valor previsto e o valor real, desde que o valor real tenha sido maior, encontrou-se os municípios de Olinda-PE e Feira de Santana-BA com uma diferença de mais de 1,2 milhão de reais. Em busca realizada na internet para avaliar as publicações jornalísticas sobre fraudes no Bolsa-Família, encontrou-se a seguinte lista:
 
 Quando | Onde	| Link 
 -------|--------|------
@@ -195,19 +195,19 @@ Quando | Onde	| Link
  2015 | Nova Ponte, MG | [Link](http://g1.globo.com/minas-gerais/triangulo-mineiro/noticia/2015/10/policia-federal-investiga-fraudes-no-bolsa-familia-em-nova-ponte.html)
  2016 | Maranhão | [Link](http://g1.globo.com/ma/maranhao/noticia/2016/11/fraude-do-bolsa-familia-no-maranhao-pode-passar-dos-r-70-milhoes.html)
 
-Em relação aos dois municípios identificados neste trabalho, Recife já havia sido apontado como um local provável de fraudes e a cidade de Campinas-SP estaria inserida nas notícias sobre o Estado de São Paulo.
+Em relação aos dois municípios identificados neste trabalho, Olinda não havia sido apontado como um local provável de fraudes e a cidade de Feira de Santana-BA estaria inserida nas notícias sobre o Estado da Bahia.
 
 Em 2016, o governo federal realizou um [pente-fino](http://mds.gov.br/area-de-imprensa/noticias/2016/novembro/pente-fino-no-bolsa-familia-encontra-irregularidades-em-1-1-milhao-de-beneficios) dos benefícios do Bolsa Família, através do cruzamento de diversas bases de dados (Relação Anual de Informações Sociais (Rais), Cadastro Geral de Empregados e Desempregados (Caged), Sistema de Controle de Óbitos (Sisobi), Instituto Nacional do Seguro Social (INSS), Sistema Integrado de Administração de Recursos Humanos (Siape) e Cadastro Nacional de Pessoas Jurídicas (CNPJ)) e identificou o que se chamou de **perfis suspeitos**, devido à inconsistências com essas bases. Esse cruzamento identificou irregularidades de 3,84% dos recursos disponibilizados pelo programa. Em parceria com esse pente-fino, o Ministério Público Federal publicou um [site](http://www.raioxbolsafamilia.mpf.mp.br/) para avaliação de mais dados, incluindo uma [ferramenta analítica](http://sig.mpf.mp.br/MicroStrategy/servlet/mstrWeb?evt=3140&src=mstrWeb.3140&documentID=DF9B91A411E6714F00000080EFB5CAD8&Server=MSTRIS.PGR.MPF.MP.BR&Project=Bolsa%20Familia&Port=0&share=1). Apesar de que o maior número de bloqueios/cancelamentos aconteceram nas capitais, são as cidades de interior, menores, que lideram o maior número relativo (proporcional ao volume de recursos disponibilizados) de bloqueios/cancelamentos.
 
-Em relação à quantidade de benefícios suspeitos, Recife foi apontado apenas como a 9o. município no ranking nacional, para valores desviados brutos. Campinas corresponde ao 48o. município.
+Em relação à quantidade de benefícios suspeitos, Olinda foi apontado apenas como a 34o. município no ranking nacional, para valores desviados brutos. Feira de Santana corresponde ao 24o. município.
 
 ## V. Conclusão
 
 ### Visualização de forma livre
-O gráfico resultante do modelo de Regressão Linear é exibido abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos.
+O gráfico resultante do modelo de Hubber Regressor é exibido abaixo em que o eixo y corresponde ao valor previsto e o eixo x corresponde ao valor real. A linha vermelha indica quando os dois valores seriam exatamente os mesmos. Os pontos abaixo da linha vermelha indicam que o valor real é maior que o valor previsto, que sãeriam os pontos a serem potencialmente investigados.
 
- * Regressão Linear
- * ![](imagens/grafico_result_linearRegression.png)
+ * Hubber Regressor
+ * ![](imagens/grafico_result_hubberRegression.png)
 
 
 ### Reflexão
