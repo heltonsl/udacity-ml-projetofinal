@@ -167,16 +167,16 @@ O score atingido foi de **0,945**. Os melhores parâmetros encontrados através 
 O score atingido com os parâmetros otimizados pelo GridSearch foi **0,681**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 1, 'criterion': 'mse', 'splitter': 'random', 'min_samples_split': 8}`.
 
 #### Floresta aleatória
-O score atingido com os parâmetros otimizados pelo GridSearch foi **0,787**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 1, 'criterion': 'mse', 'n_estimators': 10, 'min_samples_split': 2}`.
+O score atingido com os parâmetros otimizados pelo GridSearch foi **0,829**. Os melhores parâmetros encontrados através do GridSearch foram: `{'min_samples_leaf': 1, 'criterion': 'mse', 'n_estimators': 10, 'min_samples_split': 2}`.
 
 #### Huber Regressor
-O score atingido com os parâmetros otimizados pelo GridSearch foi **0,851**. Os melhores parâmetros encontrados através do GridSearch foram: `{'fit_intercept': 'True', 'alpha': 0.001, 'max_iter': 500, 'epsilon': 1.35}`.
+O score atingido com os parâmetros otimizados pelo GridSearch foi **0,954**. Os melhores parâmetros encontrados através do GridSearch foram: `{'fit_intercept': 'True', 'alpha': 0.001, 'max_iter': 500, 'epsilon': 1.35}`.
 
 #### Linear Support Vector Machine
-O score atingido com os parâmetros-padrão foi **0,302**. Os melhores parâmetros encontrados através do GridSearch foram: `{'max_iter': 100000, 'C': 1, 'loss': 'epsilon_insensitive'}`. Apesar do baixo valor de _score_ na avaliação final, o modelo atingiu uma média de _score_ na fase de _cross validation_, o que é um indício de que a seleção do corte dos dados para treinamento faz uma grande diferença no comportamento dos modelos.
+O score atingido com os parâmetros-padrão foi **0,946**. Os melhores parâmetros encontrados através do GridSearch foram: `{'max_iter': 100000, 'C': 1, 'loss': 'epsilon_insensitive'}`. Apesar do baixo valor de _score_ na avaliação final, o modelo atingiu uma média de _score_ na fase de _cross validation_, o que é um indício de que a seleção do corte dos dados para treinamento faz uma grande diferença no comportamento dos modelos.
 
 ### Justificativa
-O modelo com maior _score_ foi o modelo de **Regressão Linear**, conforme foi colocado como referência. O modelo atingiu um _score_ médio de **0,945** na fase de _cross validation_. Pelos indícios de que a seleção dos registros para fase de treinamento e teste fazem uma grande diferença para o cálculo do _score_, é possível que os modelos tenham performances diferentes em outras seleções de dados. Existem alguns poucos municípios brasileiros, geralmente capitais, com população bem maior que a grande maioria dos outros municípios e podem afetar o modelo diferentemente. 
+O modelo com maior _score_ foi o modelo de **Huber Regressor**, atingindo um _score_ médio de **0,959** na fase de _cross validation_. Pelos indícios de que a seleção dos registros para fase de treinamento e teste fazem uma grande diferença para o cálculo do _score_, é possível que os modelos tenham performances diferentes em outras seleções de dados. Existem alguns poucos municípios brasileiros, geralmente capitais, com população bem maior que a grande maioria dos outros municípios e podem afetar o modelo diferentemente. Os modelos de **Regressão Linear** e **Linear SVM** obtiveram scores muito próximos.
 
 ### Verificação dos casos de fraudes
 Na verificação dos dois casos com maior diferença entre o valor previsto e o valor real, desde que o valor real tenha sido maior, encontrou-se os municípios de Recife-PE e Campinas-SP com uma diferença de mais de 4 milhões de reais e mais de 2 milhões de reais respectivamente. Em busca realizada na internet para avaliar as publicações jornalísticas sobre fraudes no Bolsa-Família, encontrou-se a seguinte lista:
